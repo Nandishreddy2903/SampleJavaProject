@@ -1,0 +1,15 @@
+trigger: [main]
+pool: { name: MyLocalPool }
+
+steps:
+- task: Maven@3
+  inputs: { mavenPomFile: 'pom.xml', goals: 'package' }
+
+- script: |
+    echo "Deploying..."
+    mkdir deployed
+    copy target\*.jar deployed\
+    echo "Done."
+
+- script: dir deployed
+  displayName: 'Check Deployed Files'
