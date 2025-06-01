@@ -1,0 +1,15 @@
+trigger: [main]
+pool: { name: MYLOCALPOOL }
+
+steps:
+- script: mvn package
+  displayName: 'Build with Maven'
+
+- script: |
+    echo "Deploying..."
+    mkdir deployed
+    copy target\*.jar deployed\
+    echo "Done."
+
+- script: dir deployed
+  displayName: 'Check Deployed Files'
